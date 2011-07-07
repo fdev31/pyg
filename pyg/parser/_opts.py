@@ -72,7 +72,7 @@ def _install_package_from_name(package, ignore=False):
                 return vcs(package, tempdir).install()
     return Installer(package).install()
 
-def install_func(packname, req_file, editable, ignore):
+def install_func(packname, req_file, editable, ignore, yes):
     check_and_exit()
     if editable:
         if len(packname) > 1:

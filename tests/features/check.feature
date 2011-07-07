@@ -2,9 +2,9 @@ Feature: check
 
 Scenario: Install grin and bottle
     Given I use "standard" environment
-    Given I execute pyg install bottle
+    Given I execute pyg install -y bottle
     Then the return code is 0
-    Given I execute pyg install grin
+    Given I execute pyg install -y grin
     Then the return code is 0
 
 Scenario: Check Uninstalled packages

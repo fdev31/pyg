@@ -55,11 +55,13 @@ def init_parser(version=None):
     @arg('--no-scripts', action='store_true', help='Do not install scripts')
     @arg('--no-data', action='store_true', help='Do not install data files')
     @arg('--force-egg-install', action='store_true', help='Allow installing eggs with a different Python version')
+    @arg('-y', '--yes', action='store_true', help='Do not ask confirmation for the upgrade')
     def install(args):
         '''
         Install a package
         '''
 
+        args_manager['install']['yes'] = args.yes
         args_manager['install']['no_deps'] = args.no_deps
         args_manager['install']['upgrade'] = args.upgrade
         args_manager['install']['no_scripts'] = args.no_scripts
@@ -82,7 +84,7 @@ def init_parser(version=None):
                 ## name of one of the packages to install
                 args_manager['install']['ignore'] = True
         opts.install_func(args.packname, args.req_file, args.editable,
-                          args_manager['install']['ignore'])
+                          args_manager['install']['ignore'], args_manager['install']['yes'])
 
     @arg('packname', nargs='+')
     @arg('-r', '--req-file', metavar='<path>', help='Uninstall all the packages listed in the given requirement file')
@@ -93,10 +95,10 @@ def init_parser(version=None):
         Remove a package
         '''
 
-        args_manager['remove']['yes'] = args.yes
+        args_manager['install']['yes'] = args.yes
         args_manager['remove']['info'] = args.info
         opts.remove_func(args.packname, args.req_file,
-                         args_manager['remove']['yes'], args_manager['remove']['info'])
+                         args_manager['install']['yes'], args_manager['remove']['info'])
 
     @arg('packname')
     @arg('-i', '--index-url', default='http://pypi.python.org/pypi', metavar='<url>', help='Base URL of Python Package Index (default to %(default)s)')
@@ -190,8 +192,7 @@ def init_parser(version=None):
         args_manager['install']['packages_url'] = args.index_url + '/simple'
         args_manager['install']['index_url'] = args.index_url + '/pypi'
 
-        if args.yes:
-            args_manager['update']['yes'] = True
+        args_manager['install']['yes'] = args.yes
         opts.update_func(args)
 
     @command

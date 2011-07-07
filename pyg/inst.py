@@ -327,7 +327,7 @@ class Uninstaller(object):
         for d in to_del:
             logger.info(d)
         logger.indent -= 8
-        do_it = logger.ask('Proceed', bool=('remove files', 'cancel'), dont_ask=self.yes)
+        do_it = logger.ask('Proceed', bool=('remove files', 'cancel'), dont_ask=args_manager['install']['yes'])
         if do_it:
             for d in to_del:
                 try:
