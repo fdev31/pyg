@@ -98,15 +98,15 @@ def init_parser(version=None):
         opts.remove_func(args.packname, args.req_file,
                          args_manager['remove']['yes'], args_manager['remove']['info'])
 
+    @arg('packname')
     @arg('-i', '--index-url', default='http://pypi.python.org/pypi', metavar='<url>', help='Base URL of Python Package Index (default to %(default)s)')
-    def list(packname):
+    def list(args):
         '''
         List all versions for a package
         '''
         args_manager['install']['packages_url'] = args.index_url + '/simple'
         args_manager['install']['index_url'] = args.index_url + '/pypi'
-
-        opts.list_func(packname)
+        opts.list_func(args.packname)
 
     @arg('-c', '--count', action='store_true', help='Only returns requirements count')
     @arg('-f', '--file', metavar='<path>', help='Writes requirements into the specified file')
